@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  root to: 'posts#index'
+  root to: 'pages#front'
 end
