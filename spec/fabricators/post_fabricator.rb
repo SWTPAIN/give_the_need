@@ -1,0 +1,3 @@
+Fabricator(:post)do
+  
+end
