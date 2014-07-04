@@ -10,7 +10,8 @@
   %body
     %header
       = render 'shared/header'
-    %section.content
+    %section.content.container
+      = render 'shared/messages'
       = yield
     %footer
       &copy 2014 GiveTheNeed       

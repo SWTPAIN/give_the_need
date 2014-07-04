@@ -6,12 +6,27 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      %a.navbar-brand(href="#")GiveTheNeed
+      =link_to 'GiveTheNeed', root_path, class: 'navbar-brand'
     .collapse.navbar-collapse.navbar-ex1-collapse
       %ul.nav.navbar-nav.navbar-right
         %li
           = link_to "Give", root_path
         %li
           = link_to "Take" 
-        %li
-          = link_to "Account" 
+        - if user_signed_in?
+          %li.dropdown
+            %a(href="#" id="dlabel" role="button" data-toggle="dropdown" class="dropdown-toggle" data-target="#")
+              ="Welcome"
+              %b.caret
+            %ul.dropdown-menu(role="menu" aria-labelledby="dlabel")
+              %li
+                = link_to '#' do
+                  %span.glyphicon.glyphicon-envelope
+                  Invite a friend
+                = link_to '#' do
+                  %span.glyphicon.glyphicon-user
+                  Account
+                = link_to destroy_user_session_path, method: :delete do
+                  %span.glyphicon.glyphicon-off
+                  Logout
+                  
