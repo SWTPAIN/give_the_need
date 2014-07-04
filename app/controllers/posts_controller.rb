@@ -5,7 +5,8 @@ class PostsController < ApplicationController
   end
 
   def create
-    Post.create(post_params)
+    # require 'pry'; binding.pry
+    Post.create(post_params.merge(user:current_user))
     redirect_to root_path
   end
 
@@ -16,6 +17,7 @@ class PostsController < ApplicationController
 
 
   def index
+    @posts = Post.all
   end
 
   private

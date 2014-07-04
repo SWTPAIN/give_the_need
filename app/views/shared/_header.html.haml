@@ -10,9 +10,10 @@
     .collapse.navbar-collapse.navbar-ex1-collapse
       %ul.nav.navbar-nav.navbar-right
         %li
-          = link_to "Give", root_path
+          - if user_signed_in?
+            =link_to "Donate", new_post_path
         %li
-          = link_to "Take" 
+          = link_to "Take", posts_path 
         - if user_signed_in?
           %li.dropdown
             %a(href="#" id="dlabel" role="button" data-toggle="dropdown" class="dropdown-toggle" data-target="#")

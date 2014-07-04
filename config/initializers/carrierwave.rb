@@ -9,6 +9,6 @@ CarrierWave.configure do |config|
     config.fog_directory  = 'name_of_directory'                     # required
   else
     config.storage = :file
-    config.enable_processing = Rails.env.developemnt?
+    config.enable_processing = ! Rails.env.test?
   end
 end
