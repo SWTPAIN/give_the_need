@@ -26,6 +26,8 @@
                 = link_to '#' do
                   %span.glyphicon.glyphicon-user
                   Account
+                = link_to edit_user_registration_path do
+                  Edit Account
                 = link_to destroy_user_session_path, method: :delete do
                   %span.glyphicon.glyphicon-off
                   Logout
