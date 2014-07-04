@@ -2,12 +2,6 @@
   .row
     .col-md-10.col-md-offset-1
       =bootstrap_form_for @post, layout: :horizontal, label_col: 'col-sm-3', control_col: 'col-sm-6' do |f|
-        %ul.nav.nav-tabs
-          %li
-            = link_to 'Recent Payments', admin_payments_path
-          %li.active
-            %a(href="") Add a New Video
-        %br
         %fieldset
           = f.text_field :title, control_col: 'col-sm-4'
           = f.text_area :description, rows:8

@@ -15,6 +15,9 @@ gem 'devise'
 gem 'fabrication'
 gem 'faker'
 gem 'bootstrap_form'
+gem 'carrierwave'
+gem 'mini_magick'
+
 
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 group :developemnt do
