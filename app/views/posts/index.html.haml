@@ -1,7 +1,10 @@
 #posts.transitions-enabled
   -@posts.each do |post|
     .box.panel.panel-default
-      =image_tag post.main_photo_url(:thumb)
+      =link_to post do
+        =image_tag post.main_photo_url(:thumb)
       =post.title
       =post.description
       =post.user.email
+      =link_to 'Take', post_path(post)
+      

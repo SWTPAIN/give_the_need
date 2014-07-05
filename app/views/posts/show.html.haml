@@ -1,4 +1,41 @@
-%p
-  = @post.description 
-%p
-= image_tag @post.main_photo
+.row.showcase
+  .col-md-6
+    .panel-panel-default
+      .panel-heading.center
+        =image_tag @post.main_photo
+  .col-md-4
+    .panel-panel-default
+      .panel-heading.left
+        %h3
+          =@post.title
+        %p
+          =@post.description
+        %span
+          =@post.user.email
+  .col-md-2
+    #location
+      Map
+    #time
+      Time
+.row.comments
+  .col-md-8
+    .panel-panel-default
+      .bubble-list
+        .bubble.clearfix
+          %img(src='http://academic.mu.edu/phys/matthysd/web226/images/face.gif')
+          .bubble-content
+            .point
+            .commenterWrapper
+              %a(src='#')Fiona
+              %span.commentTime
+                05/07/2014   
+            .p
+              Welcome To ThePCwizard.in - Helping Beginners. Developing Experts.dsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        .bubble.clearfix
+          %img(src='http://academic.mu.edu/phys/matthysd/web226/images/face.gif')
+          .bubble-content
+            .point
+            %span
+              Fiona
+            .p
+              Welcome To ThePCwizard.in - Helping Beginners. Developing Experts.dsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
