@@ -1,24 +1,23 @@
 .row.showcase
-  .col-md-6
+  .col-sm-6
     .panel-panel-default
       .panel-heading.center
         =image_tag @post.main_photo
-  .col-md-4
-    .panel-panel-default
-      .panel-heading.left
-        %h3
-          =@post.title
-        %p
-          =@post.description
-        %span
-          =@post.user.email
-  .col-md-2
+  .col-sm-4
+    %h3
+      =@post.title
+    %hr
+    %p
+      =@post.description
+    %span
+      =@post.user.email
+  .col-sm-2
     #location
       Map
     #time
       Time
 .row.comments
-  .col-md-8
+  .col-sm-8
     .panel-panel-default
       .bubble-list
         .bubble.clearfix
