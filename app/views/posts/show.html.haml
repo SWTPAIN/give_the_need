@@ -1,8 +1,6 @@
 .row.showcase
   .col-sm-6
-    .panel-panel-default
-      .panel-heading.center
-        =image_tag @post.main_photo
+    =image_tag @post.main_photo
   .col-sm-4
     %h3
       =@post.title
@@ -18,23 +16,24 @@
       Time
 .row.comments
   .col-sm-8
-    .panel-panel-default
-      .bubble-list
-        .bubble.clearfix
+    .bubble-list
+      .bubble.clearfix
+        %img(src='http://academic.mu.edu/phys/matthysd/web226/images/face.gif')
+        =form_for [@post, @comment] do |f|
+          .control-group
+            =f.text_area :body, row: 3,  value: "Tell the donator why you need it.'"
+            =f.submit 'Submit',class: 'btn btn-primary'
+            .br
+      -@post.comments.each do |post|
+        .bubble.clearfix.row.col-sm-12
           %img(src='http://academic.mu.edu/phys/matthysd/web226/images/face.gif')
           .bubble-content
             .point
             .commenterWrapper
-              %a(src='#')Fiona
+              =link_to post.creator.username, '#'
               %span.commentTime
-                05/07/2014   
+                =post.updated_at 
             .p
-              Welcome To ThePCwizard.in - Helping Beginners. Developing Experts.dsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-        .bubble.clearfix
-          %img(src='http://academic.mu.edu/phys/matthysd/web226/images/face.gif')
-          .bubble-content
-            .point
-            %span
-              Fiona
-            .p
-              Welcome To ThePCwizard.in - Helping Beginners. Developing Experts.dsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+              post.body
+              .bubble.clearfix
+
