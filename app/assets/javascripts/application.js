@@ -16,5 +16,6 @@
 //= require turbolinks
 //= require bootstrap
 //= require masonry/jquery.masonry
+//= require jquery.easypiechart
 //= require_tree .
 

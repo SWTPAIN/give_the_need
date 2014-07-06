@@ -12,17 +12,20 @@
             Compose
     .col-sm-10
       .row
-        .col-sm-6.personal
+        .col-sm-4.personal
           %img.pic.img-circle{alt: "...", src: "http://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/twDq00QDud4/s120-c/photo.jpg"}/
           .name
             %small 
               = @user.username
-        .col-sm-6.stat
-          %p
-            = "Givings #{@user.successful_givings.length}"
-            = "Receipts #{@user.successful_receipts.length}"
-            = "Post #{@user.posts.length}"
-            = "Request #{@user.requests.length}"
+        .col-sm-8.stat
+          =content_tag(:div, class:'chart', "data-percent" => @user.successful_givings.length*100/total_number_of_giving, "data-bar-color" => "#05A1F4") do
+            = "#{@user.successful_givings.length} Givings"
+          =content_tag(:div, class:'chart', "data-percent" => @user.successful_receipts.length*100/total_number_of_receipt, "data-bar-color" => "#FF5039") do
+            = "#{@user.successful_receipts.length} Receipts"
+          =content_tag(:div, class:'chart', "data-percent" => @user.posts.length*100/total_number_of_post , "data-bar-color" => "#05A1F4") do
+            = "#{@user.posts.length} Posts"
+          =content_tag(:div, class:'chart', "data-percent" => @user.requests.length*100/total_number_of_request, "data-bar-color" => "#FF5039") do
+            = "#{@user.requests.length} Requests"
       %br/
       %br/
       %ul#myTab.nav.nav-tabs
