@@ -37,7 +37,7 @@
       .tab-content
         #post.tab-pane.active
           -@user.posts.each do |post|
-            %a{href: '#'}
+            =link_to post do
               .well.well-sm{style: "margin:0px;"}
                 = post.title
                 %span.pull-right
@@ -57,16 +57,17 @@
                     %i.fa.fa-share-square-o Cancel
 
         #commitment.tab-pane
-          %a{href: ""}
-            .well.well-sm{style: "margin:0px;"}
-              Nokia Photo
-              %span.pull-right
-                %i.glyphicon.glyphicon-time
-                12:20 AM 20 Dec 2014
-                %button.btn.btn-primary.btn-xs
-                  %i.fa.fa-share-square-o Success
-                %button.btn.btn-primary.btn-xs
-                  %i.fa.fa-share-square-o Fail
+          -@user.commitments.each do |commitment|
+            %a{href: ""}
+              .well.well-sm{style: "margin:0px;"}
+                =commitment.post.title
+                %span.pull-right
+                  %i.glyphicon.glyphicon-time
+                  = commitment.created_at
+                  %button.btn.btn-primary.btn-xs
+                    %i.fa.fa-share-square-o Success
+                  %button.btn.btn-primary.btn-xs
+                    %i.fa.fa-share-square-o Fail
 
 
 

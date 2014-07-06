@@ -24,16 +24,21 @@
             =f.text_area :body, row: 3,  value: "Tell the donator why you need it.'"
             =f.submit 'Submit',class: 'btn btn-primary'
             .br
-      -@post.requests.each do |post|
+      -@post.requests.each do |request|
         .bubble.clearfix.row.col-sm-12
           %img(src='http://academic.mu.edu/phys/matthysd/web226/images/face.gif')
           .bubble-content
             .point
             .commenterWrapper
-              =link_to post.creator.username, '#'
+              =link_to request.creator.username, '#'
               %span.commentTime
-                =post.updated_at 
-            .p
-              post.body
-              .bubble.clearfix
+                =request.updated_at
+            .row
+              .col-sm-10
+                .p
+                  =request.body
+                  .bubble.clearfix
+              = if current_user == @post.user && @post.commitments.empty?
+                .col-sm-1      
+                  =button_to "Give", post_commitments_path(@post, receiver_id: request.creator.id), class: 'btn btn-primary'
 
