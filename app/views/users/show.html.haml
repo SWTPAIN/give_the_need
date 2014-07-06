@@ -1,0 +1,78 @@
+#user_profile
+  .row.well
+    .col-sm-2
+      %ul.nav.nav-pills.nav-stacked.well
+        %li.active
+          %a{href: "#"}
+            %i.fa.fa-envelope
+            Profile
+        %li
+          %a{href: "#"}
+            %i.fa.fa-home
+            Compose
+    .col-sm-10
+      .row
+        .col-sm-6.personal
+          %img.pic.img-circle{alt: "...", src: "http://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/twDq00QDud4/s120-c/photo.jpg"}/
+          .name
+            %small 
+              = @user.username
+        .col-sm-6.stat
+          %p Reputation 5 Give 5 Take 4 Post 4 Request 8 
+      %br/
+      %br/
+      %ul#myTab.nav.nav-tabs
+        %li.active
+          %a{"data-toggle" => "tab", href: "#post"}
+            %i.fa.fa-envelope-o
+            Post
+        %li
+          %a{"data-toggle" => "tab", href: "#request"}
+            %i.fa.fa-reply-all
+            Request
+        %li
+          %a{"data-toggle" => "tab", href: "#commitment"}
+            %i.fa.fa-file-text-o
+            Commitment
+      .tab-content
+        #post.tab-pane.active
+          %a{href: '#'}
+            .well.well-sm{style: "margin:0px;"}
+              Nokia Photo
+              %span.pull-right
+                %i.glyphicon.glyphicon-time
+                10 days left
+                %button.btn.btn-primary.btn-xs
+                  %i.fa.fa-share-square-o Pick one
+          %a{href: '#'}
+            .well.well-sm{style: "margin:0px;"}
+              Nokia Photo
+              %span.pull-right
+                %i.glyphicon.glyphicon-time
+                10 days left
+                %button.btn.btn-primary.btn-xs
+                  %i.fa.fa-share-square-o Pick one
+        #request.tab-pane
+          %a{"data-target" => "#s1", "data-toggle" => "collapse", type: "button"}
+            .well.well-sm{style: "margin:0px;"}
+              Nokia Photo
+              %span.pull-right
+                %i.glyphicon.glyphicon-time
+                12:20 AM 20 Dec 2014
+                %button.btn.btn-primary.btn-xs
+                  %i.fa.fa-share-square-o Cancel
+
+        #commitment.tab-pane
+          %a{href: ""}
+            .well.well-sm{style: "margin:0px;"}
+              Nokia Photo
+              %span.pull-right
+                %i.glyphicon.glyphicon-time
+                12:20 AM 20 Dec 2014
+                %button.btn.btn-primary.btn-xs
+                  %i.fa.fa-share-square-o Success
+                %button.btn.btn-primary.btn-xs
+                  %i.fa.fa-share-square-o Fail
+
+
+
