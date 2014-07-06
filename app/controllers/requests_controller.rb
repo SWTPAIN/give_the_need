@@ -11,6 +11,16 @@ class RequestsController < ApplicationController
     end
   end
 
+  def destroy
+    @request = Request.find(params[:id])
+    if @request.destroy
+      flash[:info] = 'The request is canceled'
+    else
+      flash[:danger] = 'There is some problem happering. Please contact admin.'
+    end
+    redirect_to :back
+  end
+
   private
 
   def comment_params

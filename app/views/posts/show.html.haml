@@ -17,13 +17,14 @@
 .row.request
   .col-sm-8
     .bubble-list
-      .bubble.clearfix
-        %img(src='http://academic.mu.edu/phys/matthysd/web226/images/face.gif')
-        =form_for [@post, @request] do |f|
-          .control-group
-            =f.text_area :body, row: 3,  value: "Tell the donator why you need it.'"
-            =f.submit 'Submit',class: 'btn btn-primary'
-            .br
+      = unless current_user == @post.user
+        .bubble.clearfix
+          %img(src='http://academic.mu.edu/phys/matthysd/web226/images/face.gif')
+          =form_for [@post, @request] do |f|
+            .control-group
+              =f.text_area :body, row: 3,  value: "Tell the donator why you need it.'"
+              =f.submit 'Submit',class: 'btn btn-primary'
+              .br
       -@post.requests.each do |request|
         .bubble.clearfix.row.col-sm-12
           %img(src='http://academic.mu.edu/phys/matthysd/web226/images/face.gif')
@@ -37,8 +38,9 @@
               .col-sm-10
                 .p
                   =request.body
-                  .bubble.clearfix
-              = if current_user == @post.user && @post.commitments.empty?
-                .col-sm-1      
-                  =button_to "Give", post_commitments_path(@post, receiver_id: request.creator.id), class: 'btn btn-primary'
+                .p
+                - if current_user == @post.user && @post.givable?
+                  =link_to post_commitments_path(@post, receiver_id: request.creator.id), method: :post do
+                    %i.glyphicon.glyphicon-heart-empty
+                    Give
 

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show]
   root to: 'pages#front'
   resources :posts, only: [:new, :create, :show, :index] do
-    resources :requests, only: [:create]  
-    resources :commitments, only:[:create, :edit]
+    resources :requests, only: [:create, :destroy]  
+    resources :commitments, only:[:create, :update]
   end
 end

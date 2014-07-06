@@ -18,7 +18,11 @@
             %small 
               = @user.username
         .col-sm-6.stat
-          %p Reputation 5 Give 5 Take 4 Post 4 Request 8 
+          %p
+            = "Givings #{@user.successful_givings.length}"
+            = "Receipts #{@user.successful_receipts.length}"
+            = "Post #{@user.posts.length}"
+            = "Request #{@user.requests.length}"
       %br/
       %br/
       %ul#myTab.nav.nav-tabs
@@ -43,31 +47,66 @@
                 %span.pull-right
                   %i.glyphicon.glyphicon-time
                   = post.created_at
-                  %button.btn.btn-primary.btn-xs
-                    %i.fa.fa-share-square-o Pick one
         #request.tab-pane
           -@user.requests.each do |request|
-            %a{href: '#'}
-              .well.well-sm{style: "margin:0px;"}
+            .well.well-sm{style: "margin:0px;"}
+              =link_to request.post do
                 =request.post.title
-                %span.pull-right
-                  %i.glyphicon.glyphicon-time
-                  = request.created_at
+              %span.pull-right
+                %i.glyphicon.glyphicon-time
+                = request.created_at
+                =link_to post_request_path(request.post, request), method: :delete do
                   %button.btn.btn-primary.btn-xs
                     %i.fa.fa-share-square-o Cancel
-
+                  / =link_to post_commitments_path(@post, receiver_id: request.creator.id), method: :post do
+                  /   %i.glyphicon.glyphicon-heart-empty
+                  /   Give
         #commitment.tab-pane
-          -@user.commitments.each do |commitment|
-            %a{href: ""}
+          .well.well-sm.pending_receipts{style: "margin:0px;"}
+            Pending Receipts
+          -if @user.pending_receipts.empty?
+            .well.well-sm{style: "margin:0px;"}
+              Nil
+          -else
+            -@user.pending_receipts.each do |pending_receipt|
               .well.well-sm{style: "margin:0px;"}
-                =commitment.post.title
+                =link_to pending_receipt.post do
+                  =pending_receipt.post.title  
                 %span.pull-right
                   %i.glyphicon.glyphicon-time
-                  = commitment.created_at
-                  %button.btn.btn-primary.btn-xs
-                    %i.fa.fa-share-square-o Success
-                  %button.btn.btn-primary.btn-xs
-                    %i.fa.fa-share-square-o Fail
-
+                  = pending_receipt.created_at
+                  - if pending_receipt.receiver_response.nil?
+                    =link_to post_commitment_path(pending_receipt.post, pending_receipt, receiver_response: true), method: :patch do
+                      %button.btn.btn-primary.btn-xs
+                        %i.fa.fa-share-square-o Success
+                    =link_to post_commitment_path(pending_receipt.post, pending_receipt, receiver_response: false), method: :patch do
+                      %button.btn.btn-danger.btn-xs
+                        %i.fa.fa-share-square-o Failure
+                  -else
+                    %button.btn.btn-primary.btn-xs
+                      %i.fa.fa-share-square-o Waiting for giver's response                  
+          .well.well-sm.pending_givings{style: "margin:0px;"}
+            Pending Givings
+          -if @user.pending_givings.empty?
+            .well.well-sm{style: "margin:0px;"}
+              Nil
+          -else
+            -@user.pending_givings.each do |pending_giving|
+              .well.well-sm{style: "margin:0px;"}
+                =link_to pending_giving.post do
+                  =pending_giving.post.title  
+                %span.pull-right
+                  %i.glyphicon.glyphicon-time
+                  = pending_giving.created_at
+                  - if pending_giving.giver_response.nil?
+                    =link_to post_commitment_path(pending_giving.post, pending_giving, giver_response: true), method: :patch do
+                      %button.btn.btn-primary.btn-xs
+                        %i.fa.fa-share-square-o Success
+                    =link_to post_commitment_path(pending_giving.post, pending_giving, giver_response: false), method: :patch do
+                      %button.btn.btn-danger.btn-xs
+                        %i.fa.fa-share-square-o Failure
+                  -else
+                    %button.btn.btn-primary.btn-xs
+                      %i.fa.fa-share-square-o Waiting for receiver's response                     
 
 
