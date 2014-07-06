@@ -14,17 +14,17 @@
       Map
     #time
       Time
-.row.comments
+.row.request
   .col-sm-8
     .bubble-list
       .bubble.clearfix
         %img(src='http://academic.mu.edu/phys/matthysd/web226/images/face.gif')
-        =form_for [@post, @comment] do |f|
+        =form_for [@post, @request] do |f|
           .control-group
             =f.text_area :body, row: 3,  value: "Tell the donator why you need it.'"
             =f.submit 'Submit',class: 'btn btn-primary'
             .br
-      -@post.comments.each do |post|
+      -@post.requests.each do |post|
         .bubble.clearfix.row.col-sm-12
           %img(src='http://academic.mu.edu/phys/matthysd/web226/images/face.gif')
           .bubble-content

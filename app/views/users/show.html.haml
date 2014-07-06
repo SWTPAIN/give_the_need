@@ -36,31 +36,25 @@
             Commitment
       .tab-content
         #post.tab-pane.active
-          %a{href: '#'}
-            .well.well-sm{style: "margin:0px;"}
-              Nokia Photo
-              %span.pull-right
-                %i.glyphicon.glyphicon-time
-                10 days left
-                %button.btn.btn-primary.btn-xs
-                  %i.fa.fa-share-square-o Pick one
-          %a{href: '#'}
-            .well.well-sm{style: "margin:0px;"}
-              Nokia Photo
-              %span.pull-right
-                %i.glyphicon.glyphicon-time
-                10 days left
-                %button.btn.btn-primary.btn-xs
-                  %i.fa.fa-share-square-o Pick one
+          -@user.posts.each do |post|
+            %a{href: '#'}
+              .well.well-sm{style: "margin:0px;"}
+                = post.title
+                %span.pull-right
+                  %i.glyphicon.glyphicon-time
+                  = post.created_at
+                  %button.btn.btn-primary.btn-xs
+                    %i.fa.fa-share-square-o Pick one
         #request.tab-pane
-          %a{"data-target" => "#s1", "data-toggle" => "collapse", type: "button"}
-            .well.well-sm{style: "margin:0px;"}
-              Nokia Photo
-              %span.pull-right
-                %i.glyphicon.glyphicon-time
-                12:20 AM 20 Dec 2014
-                %button.btn.btn-primary.btn-xs
-                  %i.fa.fa-share-square-o Cancel
+          -@user.requests.each do |request|
+            %a{href: '#'}
+              .well.well-sm{style: "margin:0px;"}
+                =request.post.title
+                %span.pull-right
+                  %i.glyphicon.glyphicon-time
+                  = request.created_at
+                  %button.btn.btn-primary.btn-xs
+                    %i.fa.fa-share-square-o Cancel
 
         #commitment.tab-pane
           %a{href: ""}
