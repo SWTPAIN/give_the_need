@@ -122,25 +122,47 @@
             %a{"data-toggle" => "tab", href: "#sent"}
               %i.fa.fa-reply-all
               Sent
+          %li
+            %a{"data-toggle" => "tab", href: "#compose"}
+              %i.fa.fa-reply-all
+              Compose
         .tab-content
           #inbox.tab-pane.active
-            -@user.posts.each do |post|
-              =link_to post do
-                .well.well-sm{style: "margin:0px;"}
-                  = post.title
-                  %span.pull-right
-                    %i.glyphicon.glyphicon-time
-                    = post.created_at
+            -@user.received_messages.each do |message|
+              =content_tag(:a, type: 'button', 'data-toggle' => 'collapse', 'data-target' => "##{message.id}") do
+                .btn-toolbar.well.well-sm{style: "margin:0px;"}
+                  .btn-group.col-sm-2
+                    = message.sender.username
+                  .btn-group.col-sm-9
+                    =message.subject
+                    %span.pull-right
+                      %i.glyphicon.glyphicon-time
+                      = message.created_at
+              =content_tag(:div, class: 'collapse out well', id: message.id) do
+                =message.body
           #sent.tab-pane
-            -@user.requests.each do |request|
-              .well.well-sm{style: "margin:0px;"}
-                =link_to request.post do
-                  =request.post.title
-                %span.pull-right
-                  %i.glyphicon.glyphicon-time
-                  = request.created_at
-                  =link_to post_request_path(request.post, request), method: :delete do
-                    %button.btn.btn-primary.btn-xs
-                      %i.fa.fa-share-square-o Cancel
-                          
+            -@user.sent_messages.each do |message|
+              =content_tag(:a, type: 'button', 'data-toggle' => 'collapse', 'data-target' => "##{message.id}") do
+                .btn-toolbar.well.well-sm{style: "margin:0px;"}
+                  .btn-group.col-sm-2
+                    = message.recepient.username
+                  .btn-group.col-sm-9
+                    =message.subject
+                    %span.pull-right
+                      %i.glyphicon.glyphicon-time
+                      = message.created_at
+              =content_tag(:div, class: 'collapse out well', id: message.id) do
+                =message.body
+          #compose.tab-pane
+            .row
+              .col-md-10.col-md-offset-1
+                =bootstrap_form_for [@user, @message], layout: :horizontal, label_col: 'col-sm-3', control_col: 'col-sm-6' do |f|
+                  %fieldset
+                    =f.text_field :to, value: 'Recipient'
+                    =f.text_field :subject, value: "Subject"
+                    =f.text_area :body, value: "Body'"
+                  %fieldset.actions.form-group
+                    .col-sm-6.col-md-offset-3
+                      %input(type="submit" value="Add Video" class="btn btn-default")
+
 

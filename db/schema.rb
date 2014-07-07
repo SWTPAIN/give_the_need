@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140706054958) do
+ActiveRecord::Schema.define(version: 20140707014928) do
 
   create_table "commitments", force: true do |t|
     t.boolean  "giver_response"
@@ -23,6 +23,18 @@ ActiveRecord::Schema.define(version: 20140706054958) do
   end
 
   add_index "commitments", ["post_id"], name: "index_commitments_on_post_id"
+
+  create_table "messages", force: true do |t|
+    t.integer  "sender_id"
+    t.integer  "recepient_id"
+    t.boolean  "sender_deleted",    default: false
+    t.boolean  "recepient_deleted", default: false
+    t.string   "subject"
+    t.text     "body"
+    t.datetime "read_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "posts", force: true do |t|
     t.string   "title"

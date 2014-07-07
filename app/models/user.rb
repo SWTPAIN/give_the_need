@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   has_many :posts
   has_many :commitments, foreign_key: 'receiver_id', class_name: 'Commitment'
   has_many :requests
+  has_many :sent_messages, foreign_key: 'sender_id', class_name: 'Message'
+  has_many :received_messages, foreign_key: 'recepient_id', class_name: 'Message'
 
   def pending_receipts
     commitments.select {|commitment| commitment.status == :pending }
@@ -30,5 +32,12 @@ class User < ActiveRecord::Base
     successful_givings.compact
   end
 
+  def unread_message
+    received_messages.select{|message| !message.read?}
+  end
+
+  def unread_message_count
+    unread_message.count
+  end
 
 end
