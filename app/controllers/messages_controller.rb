@@ -24,6 +24,14 @@ class MessagesController < ApplicationController
     end
   end
 
+  def update
+    @message = Message.find(params[:id])
+    @message.read_at ||= Time.now
+    @message.save
+    respond_to do |format|
+      format.js      
+    end
+  end
 
   private 
 

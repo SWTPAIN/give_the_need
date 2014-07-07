@@ -1,0 +1,8 @@
+-if @message.valid?
+  :plain
+    $("#message#{@message.id}").toggle("slow");
+
+
+// <div id="5" class="out well collapse in" style="height: auto;">okokokok </div>
+//                 =content_tag(:div, class: 'collapse out well', id: message.id) do
+//                 =message.body

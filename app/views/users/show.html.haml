@@ -123,7 +123,7 @@
         .tab-content
           #inbox.tab-pane.active
             -@user.received_messages.each do |message|
-              =content_tag(:a, type: 'button', 'data-toggle' => 'collapse', 'data-target' => "##{message.id}") do
+              =link_to user_message_path(@user, message), remote: :true, method: :patch do
                 .btn-toolbar.well.well-sm{style: "margin:0px;"}
                   .btn-group.col-sm-2
                     = message.sender.username
@@ -132,8 +132,8 @@
                     %span.pull-right
                       %i.glyphicon.glyphicon-time
                       = message.created_at
-              =content_tag(:div, class: 'collapse out well', id: message.id) do
-                =message.body
+              .well{style: "display: none", id: "message#{message.id}"}
+                =message.body              
           #sent.tab-pane
             -@user.sent_messages.each do |message|
               =content_tag(:a, type: 'button', 'data-toggle' => 'collapse', 'data-target' => "##{message.id}") do
