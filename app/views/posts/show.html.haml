@@ -10,10 +10,12 @@
     %span
       =@post.user.email
   .col-sm-2
+    %h4
+      Locations
     #location
-      Map
-    #time
-      Time
+      -@post.locations.each do |location|
+        %span.badge
+          =location.name
 .row.request
   .col-sm-8
     .bubble-list
