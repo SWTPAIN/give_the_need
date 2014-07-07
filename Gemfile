@@ -24,6 +24,7 @@ gem 'masonry-rails'
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 group :developemnt do
   gem 'spring'
+  gem 'letter_opener'
 end
 
 group :test do
