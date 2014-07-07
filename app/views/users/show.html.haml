@@ -59,12 +59,6 @@
                 %span.pull-right
                   %i.glyphicon.glyphicon-time
                   = request.created_at
-                  =link_to post_request_path(request.post, request), method: :delete do
-                    %button.btn.btn-primary.btn-xs
-                      %i.fa.fa-share-square-o Cancel
-                    / =link_to post_commitments_path(@post, receiver_id: request.creator.id), method: :post do
-                    /   %i.glyphicon.glyphicon-heart-empty
-                    /   Give
           #commitment.tab-pane
             .well.well-sm.pending_receipts{style: "margin:0px;"}
               Pending Receipts

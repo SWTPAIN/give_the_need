@@ -7,19 +7,20 @@ class RequestsController < ApplicationController
       flash[:info] = "Your comment is added"
       redirect_to post_path(@post)
     else
-      render post_path(@post)
+      flash[:danger] = "You can only make one request per post."
+      redirect_to post_path(@post)
     end
   end
 
-  def destroy
-    @request = Request.find(params[:id])
-    if @request.destroy
-      flash[:info] = 'The request is canceled'
-    else
-      flash[:danger] = 'There is some problem happering. Please contact admin.'
-    end
-    redirect_to :back
-  end
+  # def destroy
+  #   @request = Request.find(params[:id])
+  #   if @request.destroy
+  #     flash[:info] = 'The request is canceled'
+  #   else
+  #     flash[:danger] = 'There is some problem happering. Please contact admin.'
+  #   end
+  #   redirect_to :back
+  # end
 
   private
 

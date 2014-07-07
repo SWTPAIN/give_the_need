@@ -1,7 +1,7 @@
 // @import url(http://fonts.googleapis.com/css?family=Lato:400,700);
 
 $navbar-default-link-color: #1abc9c;
-$brand-primary: #f39c12;
+$brand-primary: #1abc9c;
 $navbar-height: 50px;
 $font-family-sans-serif: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 @import 'bootstrap';
@@ -39,5 +39,7 @@ $font-family-sans-serif: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     color: #468847;
     text-align: left;
  }
-
+.glyphicon-bell {
+    color: #D91E00;
+}
 

@@ -18,6 +18,8 @@
           %li.dropdown
             %a(href="#" id="dlabel" role="button" data-toggle="dropdown" class="dropdown-toggle" data-target="#")
               ="Welcome, #{current_user.username}"
+              - if current_user.unread_message_count > 0
+                %span.glyphicon.glyphicon-bell
               %b.caret
             %ul.dropdown-menu(role="menu" aria-labelledby="dlabel")
               %li
