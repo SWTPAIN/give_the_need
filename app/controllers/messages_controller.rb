@@ -33,6 +33,13 @@ class MessagesController < ApplicationController
     end
   end
 
+  def destroy
+    @message = Message.find(params[:id])
+    @message.mark_deleted(User.find(params[:user_id]))
+    flash[:info] = "Message deleted."
+    redirect_to :back 
+  end
+
   private 
 
   def sent_to

@@ -1,7 +1,7 @@
 .row.showcase
-  .col-sm-6
+  .col-md-6
     =image_tag @post.main_photo
-  .col-sm-4
+  .col-md-4
     %h3
       =@post.title
     %hr
@@ -11,15 +11,15 @@
       =@post.description
     %span
       =@post.user.email
-  .col-sm-2
-    %h4
-      Locations
-    #location
-      -@post.locations.each do |location|
-        %span.badge
-          =location.name
+    %hr
+      %h4
+        Locations
+      #location
+        -@post.locations.each do |location|
+          %span.badge
+            =location.name
 .row.request
-  .col-sm-8
+  .col-md-8
     .bubble-list
       = unless current_user == @post.user
         .bubble.clearfix
@@ -30,7 +30,7 @@
               =f.submit 'Submit',class: 'btn btn-primary'
               .br
       -@post.requests.each do |request|
-        .bubble.clearfix.row.col-sm-12
+        .bubble.clearfix.row.col-md-12
           %img(src='http://academic.mu.edu/phys/matthysd/web226/images/face.gif')
           .bubble-content
             .point
@@ -39,7 +39,7 @@
               %span.commentTime
                 =request.updated_at
             .row
-              .col-sm-10
+              .col-md-10
                 .p
                   =request.body
                 .p

@@ -39,4 +39,11 @@ class User < ActiveRecord::Base
     unread_message.count
   end
 
+  def displayable_sent_messages
+    sent_messages.select{|message| message.sender_deleted == false}
+  end
+
+  def displayable_received_messages
+    received_messages.select{|message| message.recepient_deleted == false}
+  end
 end

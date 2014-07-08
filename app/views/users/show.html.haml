@@ -1,25 +1,26 @@
 #user_profile
   .row.well
-    .col-sm-2
+    .col-md-2
       %ul.nav.nav-pills.nav-stacked.well
         =content_tag(:li, class: params[:tab].nil? ? 'active' : 'inactive' ) do
           =link_to user_path(@user) do
             %i.fa.fa-home
             Profile  
-        =content_tag(:li, class: params[:tab]== 'message' ? 'active' : 'inactive' ) do
-          =link_to user_path(@user, tab: 'message') do
-            %i.fa.fa-home
-            = "Message"          
-            -if @user.unread_message_count > 0 
-              %span.glyphicon.glyphicon-bell
-    .col-sm-10
+        - if current_user == @user
+          =content_tag(:li, class: params[:tab]== 'message' ? 'active' : 'inactive' ) do
+            =link_to user_path(@user, tab: 'message') do
+              %i.fa.fa-home
+              = "Message"          
+              -if @user.unread_message_count > 0 
+                %span.glyphicon.glyphicon-bell
+    .col-md-10
       .row
-        .col-sm-4.personal
+        .col-md-4.personal
           %img.pic.img-circle{alt: "...", src: "http://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/twDq00QDud4/s120-c/photo.jpg"}/
           .name
             %small 
               = @user.username
-        .col-sm-8.stat
+        .col-md-8.stat
           =content_tag(:div, class:'chart', "data-percent" => @user.successful_givings.length*100/total_number_of_giving, "data-bar-color" => "#05A1F4") do
             = "#{@user.successful_givings.length} Givings"
           =content_tag(:div, class:'chart', "data-percent" => @user.successful_receipts.length*100/total_number_of_receipt, "data-bar-color" => "#FF5039") do
@@ -124,41 +125,45 @@
               Compose
         .tab-content
           #inbox.tab-pane.active
-            -@user.received_messages.each do |message|
+            -@user.displayable_received_messages.each do |message|
               =link_to user_message_path(@user, message), remote: :true, method: :patch do
                 .btn-toolbar.well.well-sm{style: "margin:0px;"}
-                  .btn-group.col-sm-2
+                  .btn-group.col-md-2
                     = message.sender.username
-                  .btn-group.col-sm-9
+                  .btn-group.col-md-9
                     =message.subject
                     %span.pull-right
                       %i.glyphicon.glyphicon-time
                       = message.created_at
               .well{style: "display: none", id: "message#{message.id}"}
                 =message.body              
+                =link_to user_message_path(current_user, message), method: :delete do
+                  %i.fa.fa-share-square-o Delete                   
           #sent.tab-pane
-            -@user.sent_messages.each do |message|
+            -@user.displayable_sent_messages.each do |message|
               =content_tag(:a, type: 'button', 'data-toggle' => 'collapse', 'data-target' => "##{message.id}") do
                 .btn-toolbar.well.well-sm{style: "margin:0px;"}
-                  .btn-group.col-sm-2
+                  .btn-group.col-md-2
                     = message.recepient.username
-                  .btn-group.col-sm-9
+                  .btn-group.col-md-9
                     =message.subject
                     %span.pull-right
                       %i.glyphicon.glyphicon-time
                       = message.created_at
               =content_tag(:div, class: 'collapse out well', id: message.id) do
                 =message.body
+                =link_to user_message_path(current_user, message), method: :delete do
+                  %i.fa.fa-share-square-o Delete                   
           #compose.tab-pane
             .row
               .col-md-10.col-md-offset-1
-                =bootstrap_form_for [@user, @message], layout: :horizontal, label_col: 'col-sm-3', control_col: 'col-sm-6' do |f|
+                =bootstrap_form_for [@user, @message], layout: :horizontal, label_col: 'col-md-3', control_col: 'col-md-6' do |f|
                   %fieldset
                     =f.text_field :to, value: 'Recipient'
                     =f.text_field :subject, value: "Subject"
                     =f.text_area :body, value: "Body'"
                   %fieldset.actions.form-group
-                    .col-sm-6.col-md-offset-3
+                    .col-md-6.col-md-offset-3
                       %input(type="submit" value="Add Video" class="btn btn-default")
 
 
