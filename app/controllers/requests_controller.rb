@@ -1,4 +1,5 @@
 class RequestsController < ApplicationController
+before_action :authenticate_user!
   def create
     @post = Post.find(params[:post_id])
     @request = @post.requests.new(comment_params)

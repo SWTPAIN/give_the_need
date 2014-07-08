@@ -1,4 +1,6 @@
 class CommitmentsController < ApplicationController
+  before_action :authenticate_user!
+
   def create
     commitment = Commitment.new(post_id: params[:post_id], receiver_id: params[:receiver_id])
     if commitment.save

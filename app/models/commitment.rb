@@ -12,4 +12,8 @@ class Commitment < ActiveRecord::Base
     end
   end
 
+  def giver
+    post.user
+  end
+
 end

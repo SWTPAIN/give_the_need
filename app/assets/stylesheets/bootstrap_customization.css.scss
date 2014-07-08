@@ -10,6 +10,19 @@ $font-family-sans-serif: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
      text-align: center;
 }
 
+.navbar-default {
+    background-color: #222222;
+}
+
+.navbar-default .navbar-inner {
+background: #fff;
+filter: none !important;
+box-shadow: 0 2px 15px rgba(0,0,0,0.25);
+-moz-box-shadow: 0 2px 15px rgba(0,0,0,0.25);
+-webkit-box-shadow: 0 2px 15px rgba(0,0,0,0.25);
+border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
 
 /*flash*/
 .alert-error {
@@ -40,6 +53,6 @@ $font-family-sans-serif: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     text-align: left;
  }
 .glyphicon-bell {
-    color: #D91E00;
+    color: #FFFFFF;
 }
 

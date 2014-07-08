@@ -9,7 +9,9 @@
         =content_tag(:li, class: params[:tab]== 'message' ? 'active' : 'inactive' ) do
           =link_to user_path(@user, tab: 'message') do
             %i.fa.fa-home
-            Message          
+            = "Message"          
+            -if @user.unread_message_count > 0 
+              %span.glyphicon.glyphicon-bell
     .col-sm-10
       .row
         .col-sm-4.personal
