@@ -16,7 +16,7 @@
     .col-md-10
       .row
         .col-md-4.personal
-          %img.pic.img-circle{alt: "...", src: "http://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/twDq00QDud4/s120-c/photo.jpg"}/
+          =image_tag @user.image, class: 'pic img-circle'
           .name
             %small 
               = @user.username
