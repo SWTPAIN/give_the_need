@@ -19,7 +19,8 @@ gem 'bootstrap_form'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'masonry-rails'
-
+gem 'omniauth-facebook'
+gem 'figaro'
 
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 group :developemnt do
