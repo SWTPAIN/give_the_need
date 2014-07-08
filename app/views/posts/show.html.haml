@@ -4,6 +4,8 @@
   .col-md-4
     %h3
       =@post.title
+      %small.status
+        =" (#{@post.status})"
     %hr
     %h4
       Details

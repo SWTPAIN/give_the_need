@@ -6,6 +6,11 @@ class Message < ActiveRecord::Base
   validates :recepient_id, presence: true
   validates :sender_id, presence: true
 
+  def self.sending_system_notice(commitment)
+    User.find_by_username('System').sent_messages.create(recepient: commitment.receiver,
+                                                         subject: 'Your request is accepted',
+                                                         body: "Please note that your request of #{commitment.post.title} is accepted. You may contact the giver.")
+  end
 
   def mark_deleted(user)
     self.sender_deleted = true if sender == user

@@ -24,7 +24,7 @@ class PostsController < ApplicationController
 
 
   def index
-    @posts = Post.all
+    @posts = Post.all.select{|post| post.status != :success}
   end
 
   private

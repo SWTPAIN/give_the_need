@@ -5,6 +5,7 @@ class CommitmentsController < ApplicationController
     commitment = Commitment.new(post_id: params[:post_id], receiver_id: params[:receiver_id])
     if commitment.save
       flash[:info] = 'The commitment is made. You might contact with the receiver.'
+      Message.sending_system_notice(commitment)
       redirect_to root_path
     else
       flash[:danger] = 'There is some probem. Please ask for admin.'

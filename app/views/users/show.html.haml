@@ -125,6 +125,9 @@
               Compose
         .tab-content
           #inbox.tab-pane.active
+            -if @user.displayable_received_messages.count > 10
+              .well.notice
+                ="Your inbox reaches limit(10). Please delete unnessary message."
             -@user.displayable_received_messages.each do |message|
               =link_to user_message_path(@user, message), remote: :true, method: :patch do
                 .btn-toolbar.well.well-sm{style: "margin:0px;"}
@@ -140,6 +143,9 @@
                 =link_to user_message_path(current_user, message), method: :delete do
                   %i.fa.fa-share-square-o Delete                   
           #sent.tab-pane
+            -if @user.displayable_sent_messages.count > 10
+              .well.notice
+                ="Your sent reaches limit(10). Please delete unnessary message."
             -@user.displayable_sent_messages.each do |message|
               =content_tag(:a, type: 'button', 'data-toggle' => 'collapse', 'data-target' => "##{message.id}") do
                 .btn-toolbar.well.well-sm{style: "margin:0px;"}
@@ -164,6 +170,6 @@
                     =f.text_area :body, value: "Body'"
                   %fieldset.actions.form-group
                     .col-md-6.col-md-offset-3
-                      %input(type="submit" value="Add Video" class="btn btn-default")
+                      %input(type="submit" value="Send" class="btn btn-default")
 
 
