@@ -24,7 +24,11 @@ class PostsController < ApplicationController
 
 
   def index
+    if params[:tag]
+      @posts = Post.tagged_with(params[:tag])
+    else
     @posts = Post.all.select{|post| post.status != :success}
+    end
   end
 
   private

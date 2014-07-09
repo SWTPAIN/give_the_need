@@ -6,7 +6,8 @@ class Post < ActiveRecord::Base
   has_many :locations, through: :post_locations
   validates_presence_of :title, :description
   mount_uploader :main_photo, MainPhotoUploader
-
+  acts_as_taggable
+  
   def givable?
     commitments.empty? || commitments.last.status == :failure
   end

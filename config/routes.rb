@@ -8,4 +8,6 @@ Rails.application.routes.draw do
     resources :requests, only: [:create, :destroy]  
     resources :commitments, only:[:create, :update]
   end
+  get 'tags/:tag', to: 'posts#index', as: :tag
+
 end

@@ -20,6 +20,10 @@
         -@post.locations.each do |location|
           %span.badge
             =location.name
+      %h4
+        Tags
+        %small
+          =raw @post.tag_list.map{ |tag| link_to tag, tag_path(tag)}.join(', ')
 .row.request
   .col-md-8
     .bubble-list
