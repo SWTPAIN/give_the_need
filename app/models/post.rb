@@ -24,4 +24,15 @@ class Post < ActiveRecord::Base
     end
   end
 
+  def self.search(search_term)
+    result =[]
+    if search_term.blank?
+    elsif !(result = Post.tagged_with(search_term, wild: true, any: true)).empty?
+    elsif Location.all.map(&:name).include? search_term
+      result = Post.all.select{|post| post.locations.map(&:name).include? search_term}
+    elsif ! (result = self.where("title LIKE ?", "%#{search_term}%")).empty?
+    end
+    result      
+  end
+
 end

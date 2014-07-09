@@ -7,8 +7,10 @@ Rails.application.routes.draw do
   resources :posts, only: [:new, :create, :show, :index] do
     resources :requests, only: [:create, :destroy]  
     resources :commitments, only:[:create, :update]
+    collection do
+      get 'search'
+    end
   end
   get 'tags/:tag', to: 'posts#index', as: :tag
   get 'locations/:location', to:'posts#index', as: :location
-  resources :location, only: [:show]
 end

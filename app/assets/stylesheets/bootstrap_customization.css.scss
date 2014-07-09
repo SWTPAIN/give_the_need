@@ -1,17 +1,21 @@
 // @import url(http://fonts.googleapis.com/css?family=Lato:400,700);
 
-$navbar-default-link-color: #1abc9c;
-$brand-primary: #1abc9c;
+$navbar-default-link-color: #6AD081;
+$brand-primary: #6AD081;
 $navbar-height: 50px;
 $font-family-sans-serif: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 @import 'bootstrap';
 
+a {
+  color: #6AD081;
+}
 .center {
   text-align: center;
 }
 
 .navbar-default {
-  background-color: #222222;
+  background-color: #121212;
+  border-color: #121212;
 }
 
 .navbar-default .navbar-inner {
@@ -59,3 +63,35 @@ $font-family-sans-serif: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #FFFFFF;
 }
 
+.searchbox{
+  background-color:#2E2E2E;
+  padding:5px;
+  border-radius:6px;
+}
+
+.searchbox input{
+  border-radius:6px;
+  border:none;
+  color:#939393;
+  font-weight:500;
+  background-color:#fffbf8;
+   box-shadow:
+  0 -2px 2px 0 rgba(199, 199, 199, 0.55),
+  0 1px 1px 0 #fff,
+  0 2px 2px 1px #fafafa,
+  0 2px 4px 0 #b2b2b2 inset,
+  0 -1px 1px 0 #f2f2f2 inset,
+  0 15px 15px 0 rgba(41, 41, 41, 0.09) inset;
+}
+
+.searchbox button{
+  width:35px;
+  height:30px;
+  background-repeat: no-repeat;
+  background-position: 10px 5px;
+  background-color:#fffbf8;
+  background-color:transparent;
+  background-size:20px 20px;
+  border:none;
+  cursor:pointer;
+}

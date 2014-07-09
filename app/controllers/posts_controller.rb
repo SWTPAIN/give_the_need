@@ -5,7 +5,6 @@ class PostsController < ApplicationController
   end
 
   def create
-    # require 'pry'; binding.pry
     @post = Post.new(post_params.merge(user:current_user))
     if @post.save
       flash[:info] = 'Your registration is succeeded. Please sign in.'
@@ -21,8 +20,6 @@ class PostsController < ApplicationController
     @request = Request.new
   end
 
-
-
   def index
     if params[:tag]
       @posts = Post.tagged_with(params[:tag]).select{|post| post.status != :success}
@@ -32,6 +29,12 @@ class PostsController < ApplicationController
     else
     @posts = Post.all.select{|post| post.status != :success}
     end
+  end
+
+  def search
+    @posts = Post.search(params[:search_term])    
+    flash[:danger] = "There is no match result for the key word #{params[:search_term]}" if @posts == []
+    render :index
   end
 
   private

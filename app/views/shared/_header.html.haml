@@ -6,9 +6,15 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      =link_to 'GiveTheNeed', root_path, class: 'navbar-brand'
+      =link_to 'GiveNTake', root_path, class: 'navbar-brand'
     .collapse.navbar-collapse.navbar-ex1-collapse
       %ul.nav.navbar-nav.navbar-right
+        %li
+          = form_tag(search_posts_path, method: 'get', class: 'col-md-5 navbar-form') do
+            .form-group.searchbox
+              = text_field_tag :search_term,nil, class: 'form-control', placeholder: "Search for posts here"
+              = button_tag(type: 'submit', class: 'form-control btn btn-default') do
+                %span.glyphicon.glyphicon-search
         %li
           - if user_signed_in?
             =link_to "Donate", new_post_path
@@ -34,4 +40,6 @@
                 = link_to destroy_user_session_path, method: :delete do
                   %span.glyphicon.glyphicon-off
                   Logout
-                  
+        - else 
+          %li
+            =link_to "Sign In", new_user_session_path                  

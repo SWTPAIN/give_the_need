@@ -1,9 +1,6 @@
 %section.site_title
   %h1
-    Donate and Take for free.
-  - unless user_signed_in?
-    %p.sign_up
-      = link_to "Sign Up Now!", new_user_registration_path
-    %p.sign_in
-      Have an account? Please
-      = link_to "Sign In", new_user_session_path, class: 'btn btn-primary'
+    Give and Take for free.
+  .action
+    = link_to "Sign In", new_user_session_path, id: 'sign_in_buttom'
+    = link_to "Join Us", new_user_registration_path, id: 'join_us_buttom'
