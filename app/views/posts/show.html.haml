@@ -19,8 +19,8 @@
       #location
         -@post.locations.each do |location|
           %span.badge
-            =location.name
-      %h4
+            =link_to location.name, location_path(location)
+      %h5
         Tags
         %small
           =raw @post.tag_list.map{ |tag| link_to tag, tag_path(tag)}.join(', ')

@@ -9,5 +9,6 @@ Rails.application.routes.draw do
     resources :commitments, only:[:create, :update]
   end
   get 'tags/:tag', to: 'posts#index', as: :tag
-
+  get 'locations/:location', to:'posts#index', as: :location
+  resources :location, only: [:show]
 end
