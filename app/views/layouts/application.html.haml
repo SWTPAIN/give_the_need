@@ -16,3 +16,22 @@
     %footer
       %p.text-muted
         &copy 2014 GiveTheNeed       
+        %small.term{"data-target" => "#myModal", "data-toggle" => "modal"}
+          Term
+        / Modal
+        #myModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+          .modal-dialog
+            .modal-content
+              .modal-header
+                %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} &times;
+                %h1#myModalLabel.modal-title Statement of Rights and Responsibilities
+              .modal-body
+                %p Date of Last Revision: 09 July, 2014.
+                %p
+                  %ul
+                    %li
+                      %em Privacy
+                    %li
+                      %em Safety
+              .modal-footer
+                %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
