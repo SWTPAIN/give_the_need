@@ -1,12 +1,9 @@
 %nav.navbar.navbar-default( role="navigation")
   .container
     .navbar-header
-      %button.navbar-toggle(data-toggle="collapse" data-target=".navbar-ex1-collapse")
-        %span.sr-only Toggle navigation
-        %span.icon-bar
-        %span.icon-bar
-        %span.icon-bar
       =link_to 'GiveNTake', root_path, class: 'navbar-brand'
+      %span.beta-tag
+        beta
     .collapse.navbar-collapse.navbar-ex1-collapse
       %ul.nav.navbar-nav.navbar-right
         %li

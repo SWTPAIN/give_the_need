@@ -29,7 +29,7 @@
     .bubble-list
       = unless current_user == @post.user
         .bubble.clearfix
-          %img(src='http://academic.mu.edu/phys/matthysd/web226/images/face.gif')
+          =image_tag current_user.image
           =form_for [@post, @request] do |f|
             .control-group
               =f.text_area :body, row: 3,  value: "Tell the donator why you need it.'"
@@ -37,7 +37,7 @@
               .br
       -@post.requests.each do |request|
         .bubble.clearfix.row.col-md-12
-          %img(src='http://academic.mu.edu/phys/matthysd/web226/images/face.gif')
+          =image_tag request.creator.image
           .bubble-content
             .point
             .commenterWrapper
