@@ -22,6 +22,10 @@ gem 'masonry-rails'
 gem 'omniauth-facebook'
 gem 'figaro'
 gem 'acts-as-taggable-on'
+gem 'sidekiq'
+gem 'sinatra', require: false
+gem 'slim'
+gem 'devise-async'
 
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 group :developemnt do
@@ -40,9 +44,6 @@ end
 group :production do
   gem 'pg'
 end
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
 
 # Use unicorn as the app server
 # gem 'unicorn'
