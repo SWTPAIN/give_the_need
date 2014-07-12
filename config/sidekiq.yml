@@ -1,0 +1,10 @@
+---
+:verbose: false
+:concurrency: 1
+:queues:
+  - [default, 1]
+  - [mailer, 9]
+staging:
+  :concurrency: 5
+production:
+  :concurrency: 10
