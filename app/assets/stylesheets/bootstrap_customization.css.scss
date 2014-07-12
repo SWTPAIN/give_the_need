@@ -13,6 +13,13 @@ a {
   text-align: center;
 }
 
+body, html {
+  height: 100%;
+}
+section {
+  min-height: 100%;
+}
+
 .navbar-default {
   background-color: #121212;
   border-color: #121212;

@@ -1,175 +1,96 @@
 #user_profile
   .row.well
-    .col-md-2
-      %ul.nav.nav-pills.nav-stacked.well
-        =content_tag(:li, class: params[:tab].nil? ? 'active' : 'inactive' ) do
-          =link_to user_path(@user) do
-            %i.fa.fa-home
-            Profile  
-        - if current_user == @user
-          =content_tag(:li, class: params[:tab]== 'message' ? 'active' : 'inactive' ) do
-            =link_to user_path(@user, tab: 'message') do
-              %i.fa.fa-home
-              = "Message"          
-              -if @user.unread_message_count > 0 
-                %span.glyphicon.glyphicon-bell
-    .col-md-10
-      .row
-        .col-md-4.personal
-          =image_tag @user.image, class: 'pic img-circle'
-          .name
-            %small 
-              = @user.username
-        .col-md-8.stat
-          =content_tag(:div, class:'chart', "data-percent" => @user.successful_givings.length*100/total_number_of_giving, "data-bar-color" => "#05A1F4") do
-            = "#{@user.successful_givings.length} Givings"
-          =content_tag(:div, class:'chart', "data-percent" => @user.successful_receipts.length*100/total_number_of_receipt, "data-bar-color" => "#FF5039") do
-            = "#{@user.successful_receipts.length} Receipts"
-          =content_tag(:div, class:'chart', "data-percent" => @user.posts.length*100/total_number_of_post , "data-bar-color" => "#05A1F4") do
-            = "#{@user.posts.length} Posts"
-          =content_tag(:div, class:'chart', "data-percent" => @user.requests.length*100/total_number_of_request, "data-bar-color" => "#FF5039") do
-            = "#{@user.requests.length} Requests"
-      %br/
-      %br/
-      -if params[:tab].nil?
-        %ul#myTab.nav.nav-tabs
-          %li.active
-            %a{"data-toggle" => "tab", href: "#post"}
-              %i.fa.fa-envelope-o
-              Post
-          %li
-            %a{"data-toggle" => "tab", href: "#request"}
-              %i.fa.fa-reply-all
-              Request
-          %li
-            %a{"data-toggle" => "tab", href: "#commitment"}
-              %i.fa.fa-file-text-o
-              Commitment
-        .tab-content
-          #post.tab-pane.active
-            -@user.posts.each do |post|
-              =link_to post do
-                .well.well-sm{style: "margin:0px;"}
-                  = post.title
-                  %span.pull-right
-                    %i.glyphicon.glyphicon-time
-                    = post.created_at
-          #request.tab-pane
-            -@user.requests.each do |request|
-              .well.well-sm{style: "margin:0px;"}
-                =link_to request.post do
-                  =request.post.title
-                %span.pull-right
-                  %i.glyphicon.glyphicon-time
-                  = request.created_at
-          #commitment.tab-pane
-            .well.well-sm.pending_receipts{style: "margin:0px;"}
-              Pending Receipts
-            -if @user.pending_receipts.empty?
-              .well.well-sm{style: "margin:0px;"}
-                Nil
-            -else
-              -@user.pending_receipts.each do |pending_receipt|
-                .well.well-sm{style: "margin:0px;"}
-                  =link_to pending_receipt.post do
-                    =pending_receipt.post.title  
-                  %span.pull-right
-                    %i.glyphicon.glyphicon-time
-                    = pending_receipt.created_at
-                    - if pending_receipt.receiver_response.nil?
-                      =link_to post_commitment_path(pending_receipt.post, pending_receipt, receiver_response: true), method: :patch do
-                        %button.btn.btn-primary.btn-xs
-                          %i.fa.fa-share-square-o Success
-                      =link_to post_commitment_path(pending_receipt.post, pending_receipt, receiver_response: false), method: :patch do
-                        %button.btn.btn-danger.btn-xs
-                          %i.fa.fa-share-square-o Failure
-                    -else
-                      %button.btn.btn-primary.btn-xs
-                        %i.fa.fa-share-square-o Waiting for giver's response                  
-            .well.well-sm.pending_givings{style: "margin:0px;"}
-              Pending Givings
-            -if @user.pending_givings.empty?
-              .well.well-sm{style: "margin:0px;"}
-                Nil
-            -else
-              -@user.pending_givings.each do |pending_giving|
-                .well.well-sm{style: "margin:0px;"}
-                  =link_to pending_giving.post do
-                    =pending_giving.post.title  
-                  %span.pull-right
-                    %i.glyphicon.glyphicon-time
-                    = pending_giving.created_at
-                    - if pending_giving.giver_response.nil?
-                      =link_to post_commitment_path(pending_giving.post, pending_giving, giver_response: true), method: :patch do
-                        %button.btn.btn-primary.btn-xs
-                          %i.fa.fa-share-square-o Success
-                      =link_to post_commitment_path(pending_giving.post, pending_giving, giver_response: false), method: :patch do
-                        %button.btn.btn-danger.btn-xs
-                          %i.fa.fa-share-square-o Failure
-                    -else
-                      %button.btn.btn-primary.btn-xs
-                        %i.fa.fa-share-square-o Waiting for receiver's response                     
-      -else
-        %ul#myTab.nav.nav-tabs
-          %li.active
-            %a{"data-toggle" => "tab", href: "#inbox"}
-              %i.fa.fa-envelope-o
-              Inbox
-          %li
-            %a{"data-toggle" => "tab", href: "#sent"}
-              %i.fa.fa-reply-all
-              Sent
-          %li
-            %a{"data-toggle" => "tab", href: "#compose"}
-              %i.fa.fa-reply-all
-              Compose
-        .tab-content
-          #inbox.tab-pane.active
-            -if @user.displayable_received_messages.count > 10
-              .well.notice
-                ="Your inbox reaches limit(10). Please delete unnessary message."
-            -@user.displayable_received_messages.each do |message|
-              =link_to user_message_path(@user, message), remote: :true, method: :patch do
-                .btn-toolbar.well.well-sm{style: "margin:0px;"}
-                  .btn-group.col-md-2
-                    = message.sender.username
-                  .btn-group.col-md-9
-                    =message.subject
-                    %span.pull-right
-                      %i.glyphicon.glyphicon-time
-                      = message.created_at
-              .well{style: "display: none", id: "message#{message.id}"}
-                =message.body              
-                =link_to user_message_path(current_user, message), method: :delete do
-                  %i.fa.fa-share-square-o Delete                   
-          #sent.tab-pane
-            -if @user.displayable_sent_messages.count > 10
-              .well.notice
-                ="Your sent reaches limit(10). Please delete unnessary message."
-            -@user.displayable_sent_messages.each do |message|
-              =content_tag(:a, type: 'button', 'data-toggle' => 'collapse', 'data-target' => "##{message.id}") do
-                .btn-toolbar.well.well-sm{style: "margin:0px;"}
-                  .btn-group.col-md-2
-                    = message.recepient.username
-                  .btn-group.col-md-9
-                    =message.subject
-                    %span.pull-right
-                      %i.glyphicon.glyphicon-time
-                      = message.created_at
-              =content_tag(:div, class: 'collapse out well', id: message.id) do
-                =message.body
-                =link_to user_message_path(current_user, message), method: :delete do
-                  %i.fa.fa-share-square-o Delete                   
-          #compose.tab-pane
-            .row
-              .col-md-10.col-md-offset-1
-                =bootstrap_form_for [@user, @message], layout: :horizontal, label_col: 'col-md-3', control_col: 'col-md-6' do |f|
-                  %fieldset
-                    =f.text_field :to, value: 'Recipient'
-                    =f.text_field :subject, value: "Subject"
-                    =f.text_area :body, value: "Body'"
-                  %fieldset.actions.form-group
-                    .col-md-6.col-md-offset-3
-                      %input(type="submit" value="Send" class="btn btn-default")
-
-
+    .row
+      .col-md-4.personal
+        =image_tag @user.image, class: 'pic img-circle'
+        .name
+          %small 
+            = @user.username
+      .col-md-8.stat
+        =content_tag(:div, class:'chart', "data-percent" => @user.successful_givings.length*100/total_number_of_giving, "data-bar-color" => "#05A1F4") do
+          = "#{@user.successful_givings.length} Givings"
+        =content_tag(:div, class:'chart', "data-percent" => @user.successful_receipts.length*100/total_number_of_receipt, "data-bar-color" => "#FF5039") do
+          = "#{@user.successful_receipts.length} Receipts"
+        =content_tag(:div, class:'chart', "data-percent" => @user.posts.length*100/total_number_of_post , "data-bar-color" => "#05A1F4") do
+          = "#{@user.posts.length} Posts"
+        =content_tag(:div, class:'chart', "data-percent" => @user.requests.length*100/total_number_of_request, "data-bar-color" => "#FF5039") do
+          = "#{@user.requests.length} Requests"
+    %br/
+    %br/
+    %ul#myTab.nav.nav-tabs
+      %li.active
+        %a{"data-toggle" => "tab", href: "#post"}
+          %i.fa.fa-envelope-o
+          Post
+      %li
+        %a{"data-toggle" => "tab", href: "#request"}
+          %i.fa.fa-reply-all
+          Request
+      %li
+        %a{"data-toggle" => "tab", href: "#commitment"}
+          %i.fa.fa-file-text-o
+          Commitment
+    .tab-content
+      #post.tab-pane.active
+        -@user.posts.each do |post|
+          =link_to post do
+            .well.well-sm{style: "margin:0px;"}
+              = post.title
+              %span.pull-right
+                %i.glyphicon.glyphicon-time
+                = post.created_at
+      #request.tab-pane
+        -@user.requests.each do |request|
+          .well.well-sm{style: "margin:0px;"}
+            =link_to request.post do
+              =request.post.title
+            %span.pull-right
+              %i.glyphicon.glyphicon-time
+              = request.created_at
+      #commitment.tab-pane
+        .well.well-sm.pending_receipts{style: "margin:0px;"}
+          Pending Receipts
+        -if @user.pending_receipts.empty?
+          .well.well-sm{style: "margin:0px;"}
+            Nil
+        -else
+          -@user.pending_receipts.each do |pending_receipt|
+            .well.well-sm{style: "margin:0px;"}
+              =link_to pending_receipt.post do
+                =pending_receipt.post.title  
+              %span.pull-right
+                %i.glyphicon.glyphicon-time
+                = pending_receipt.created_at
+                - if pending_receipt.receiver_response.nil?
+                  =link_to post_commitment_path(pending_receipt.post, pending_receipt, receiver_response: true), method: :patch do
+                    %button.btn.btn-primary.btn-xs
+                      %i.fa.fa-share-square-o Success
+                  =link_to post_commitment_path(pending_receipt.post, pending_receipt, receiver_response: false), method: :patch do
+                    %button.btn.btn-danger.btn-xs
+                      %i.fa.fa-share-square-o Failure
+                -else
+                  %button.btn.btn-primary.btn-xs
+                    %i.fa.fa-share-square-o Waiting for giver's response                  
+        .well.well-sm.pending_givings{style: "margin:0px;"}
+          Pending Givings
+        -if @user.pending_givings.empty?
+          .well.well-sm{style: "margin:0px;"}
+            Nil
+        -else
+          -@user.pending_givings.each do |pending_giving|
+            .well.well-sm{style: "margin:0px;"}
+              =link_to pending_giving.post do
+                =pending_giving.post.title  
+              %span.pull-right
+                %i.glyphicon.glyphicon-time
+                = pending_giving.created_at
+                - if pending_giving.giver_response.nil?
+                  =link_to post_commitment_path(pending_giving.post, pending_giving, giver_response: true), method: :patch do
+                    %button.btn.btn-primary.btn-xs
+                      %i.fa.fa-share-square-o Success
+                  =link_to post_commitment_path(pending_giving.post, pending_giving, giver_response: false), method: :patch do
+                    %button.btn.btn-danger.btn-xs
+                      %i.fa.fa-share-square-o Failure
+                -else
+                  %button.btn.btn-primary.btn-xs
+                    %i.fa.fa-share-square-o Waiting for receiver's response                     

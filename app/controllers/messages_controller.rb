@@ -1,11 +1,10 @@
 class MessagesController < ApplicationController
   before_action :authenticate_user!, only:[:new, :create]
-  def new
+
+  def index
+    @sent_messages = current_user.displayable_sent_messages        
+    @received_messages = current_user.displayable_received_messages
     @message = Message.new
-    if params[:reply_to]
-      @reply_to = User.find_by_username(:params[:reply_to])
-      @message.recepient_id = @reply_to.id unless @reply_to.nil?
-    end
   end
 
   def create
@@ -15,14 +14,11 @@ class MessagesController < ApplicationController
       @message.recepient = sent_to
       if @message.save
         flash[:info] = "Message has been sent"
-        redirect_to user_path(current_user)
-      else
-        render :new
       end
     else
       flash[:danger] = 'There is no such user. Please check the username.'
-      redirect_to user_path(current_user)
     end
+    redirect_to :back 
   end
 
   def update
