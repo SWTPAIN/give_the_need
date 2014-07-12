@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   has_many :sent_messages, foreign_key: 'sender_id', class_name: 'Message'
   has_many :received_messages, foreign_key: 'recepient_id', class_name: 'Message'
   mount_uploader :image, MainPhotoUploader
+  POST_SHOWN_LIMIT = 15    
+
   def self.from_omniauth(auth)
     where(auth.slice(:provider, :uid)).first_or_create do |user|
       user.email = auth.info.email

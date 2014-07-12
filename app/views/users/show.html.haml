@@ -55,22 +55,7 @@
             Nil
         -else
           -@user.pending_receipts.each do |pending_receipt|
-            .well.well-sm{style: "margin:0px;"}
-              =link_to pending_receipt.post do
-                =pending_receipt.post.title  
-              %span.pull-right
-                %i.glyphicon.glyphicon-time
-                = pending_receipt.created_at
-                - if pending_receipt.receiver_response.nil?
-                  =link_to post_commitment_path(pending_receipt.post, pending_receipt, receiver_response: true), method: :patch do
-                    %button.btn.btn-primary.btn-xs
-                      %i.fa.fa-share-square-o Success
-                  =link_to post_commitment_path(pending_receipt.post, pending_receipt, receiver_response: false), method: :patch do
-                    %button.btn.btn-danger.btn-xs
-                      %i.fa.fa-share-square-o Failure
-                -else
-                  %button.btn.btn-primary.btn-xs
-                    %i.fa.fa-share-square-o Waiting for giver's response                  
+            =render 'commitments/commitment', commitment: pending_receipt, user: @user 
         .well.well-sm.pending_givings{style: "margin:0px;"}
           Pending Givings
         -if @user.pending_givings.empty?
@@ -78,19 +63,4 @@
             Nil
         -else
           -@user.pending_givings.each do |pending_giving|
-            .well.well-sm{style: "margin:0px;"}
-              =link_to pending_giving.post do
-                =pending_giving.post.title  
-              %span.pull-right
-                %i.glyphicon.glyphicon-time
-                = pending_giving.created_at
-                - if pending_giving.giver_response.nil?
-                  =link_to post_commitment_path(pending_giving.post, pending_giving, giver_response: true), method: :patch do
-                    %button.btn.btn-primary.btn-xs
-                      %i.fa.fa-share-square-o Success
-                  =link_to post_commitment_path(pending_giving.post, pending_giving, giver_response: false), method: :patch do
-                    %button.btn.btn-danger.btn-xs
-                      %i.fa.fa-share-square-o Failure
-                -else
-                  %button.btn.btn-primary.btn-xs
-                    %i.fa.fa-share-square-o Waiting for receiver's response                     
+            =render 'commitments/commitment', commitment: pending_giving, user: @user 

@@ -1,5 +1,5 @@
 #mailbox
-  .row   
+  .row.well   
     %ul#myTab.nav.nav-tabs
       %li.active
         %a{"data-toggle" => "tab", href: "#inbox"}
@@ -15,9 +15,9 @@
           Compose
     .tab-content
       #inbox.tab-pane.active
-        -if @received_messages.count > 10
+        -if @received_messages.count > User::POST_SHOWN_LIMIT
           .well.notice
-            ="Your inbox reaches limit(10). Please delete unnessary message."
+            ="Your inbox reaches limit(#{User::POST_SHOWN_LIMIT}). Please delete unnessary message."
         -@received_messages.each do |message|
           =link_to user_message_path(current_user, message), remote: :true, method: :patch do
             .btn-toolbar.well.well-sm{style: "margin:0px;"}
@@ -33,9 +33,9 @@
             =link_to user_message_path(current_user, message), method: :delete do
               %i.fa.fa-share-square-o Delete                   
       #sent.tab-pane
-        -if @sent_messages.count > 10
+        -if @sent_messages.count > User::POST_SHOWN_LIMIT
           .well.notice
-            ="Your sent reaches limit(10). Please delete unnessary message."
+            ="Your sent reaches limit(#{User::POST_SHOWN_LIMIT}). Please delete unnessary message."
         -@sent_messages.each do |message|
           =content_tag(:a, type: 'button', 'data-toggle' => 'collapse', 'data-target' => "##{message.id}") do
             .btn-toolbar.well.well-sm{style: "margin:0px;"}

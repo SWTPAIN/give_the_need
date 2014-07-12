@@ -1,0 +1,29 @@
+.well.well-sm{style: "margin:0px;"}
+  =link_to commitment.post do
+    =commitment.post.title  
+  %span.pull-right
+    %i.glyphicon.glyphicon-time
+    = commitment.created_at
+    -if commitment.receiver == user
+      - if commitment.receiver_response.nil?
+        =link_to post_commitment_path(commitment.post, commitment, receiver_response: true), method: :patch do
+          %button.btn.btn-primary.btn-xs
+            Success
+        =link_to post_commitment_path(commitment.post, commitment, receiver_response: false), method: :patch do
+          %button.btn.btn-danger.btn-xs
+            Failure
+      -else
+        %button.btn.btn-primary.btn-xs
+          Waiting for giver's response
+    -else 
+      - if commitment.giver_response.nil?
+        =link_to post_commitment_path(commitment.post, commitment, giver_response: true), method: :patch do
+          %button.btn.btn-primary.btn-xs
+            Success
+        =link_to post_commitment_path(commitment.post, commitment, giver_response: false), method: :patch do
+          %button.btn.btn-danger.btn-xs
+            Failure
+      -else
+        %button.btn.btn-primary.btn-xs
+          Waiting for receiver's response
+
