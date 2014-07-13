@@ -30,6 +30,10 @@
         %a{"data-toggle" => "tab", href: "#commitment"}
           %i.fa.fa-file-text-o
           Commitment
+      %li
+        %a{"data-toggle" => "tab", href: "#history"}
+          %i.fa.fa-file-text-o
+          History
     .tab-content
       #post.tab-pane.active
         -@user.posts.each do |post|
@@ -64,3 +68,29 @@
         -else
           -@user.pending_givings.each do |pending_giving|
             =render 'commitments/commitment', commitment: pending_giving, user: @user 
+      #history.tab-pane
+        .well.well-sm.pending_receipts{style: "margin:0px;"}
+          Successful Receipts
+        -if @user.successful_receipts.empty?
+          .well.well-sm{style: "margin:0px;"}
+            Nil
+        -else
+          -@user.successful_receipts.each do |receipt|
+            .well.well-sm{style: "margin:0px;"}
+              =displaying_receipt(receipt)
+              %span.pull-right
+                %i.glyphicon.glyphicon-time
+                = receipt.created_at
+        .well.well-sm.pending_givings{style: "margin:0px;"}
+          Successful Givings
+        -if @user.successful_givings.empty?
+          .well.well-sm{style: "margin:0px;"}
+            Nil
+        -else
+          -@user.successful_givings.each do |giving|
+            .well.well-sm{style: "margin:0px;"}
+              =displaying_giving(giving)
+              %span.pull-right
+                %i.glyphicon.glyphicon-time
+                = giving.created_at
+

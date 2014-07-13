@@ -21,6 +21,7 @@ class CommitmentsController < ApplicationController
       commitment.giver_response = params[:giver_response]
     end      
     commitment.save
+    Message.sending_system_notice(commitment) if commitment.status == :failure 
     redirect_to :back
   end
 

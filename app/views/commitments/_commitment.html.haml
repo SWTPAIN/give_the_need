@@ -6,10 +6,10 @@
     = commitment.created_at
     -if commitment.receiver == user
       - if commitment.receiver_response.nil?
-        =link_to post_commitment_path(commitment.post, commitment, receiver_response: true), method: :patch, confirm: 'Are you sure' do
+        =link_to post_commitment_path(commitment.post, commitment, receiver_response: true), method: :patch do
           %button.btn.btn-primary.btn-xs
             Success
-        =link_to post_commitment_path(commitment.post, commitment, receiver_response: false), method: :patch do
+        =link_to post_commitment_path(commitment.post, commitment, receiver_response: false), data: {method: :patch, confirm: 'Are you sure? The giver will be informed about the failure response.'} do
           %button.btn.btn-danger.btn-xs
             Failure
       -else
@@ -20,7 +20,7 @@
         =link_to post_commitment_path(commitment.post, commitment, giver_response: true), method: :patch do
           %button.btn.btn-primary.btn-xs
             Success
-        =link_to post_commitment_path(commitment.post, commitment, giver_response: false), method: :patch do
+        =link_to post_commitment_path(commitment.post, commitment, giver_response: false), data: {method: :patch, confirm: 'Are you sure? The receiver will be informed about the failure response.'} do
           %button.btn.btn-danger.btn-xs
             Failure
       -else

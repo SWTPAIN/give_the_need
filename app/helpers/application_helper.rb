@@ -15,4 +15,13 @@ module ApplicationHelper
   def total_number_of_receipt
     total_number_of_giving
   end
+
+  def displaying_receipt(receipt)
+    "#{receipt.post.title} (giver: #{receipt.giver.username})"
+  end
+
+  def displaying_giving(giving)
+    "#{giving.post.title} (receiver: #{giving.receiver.username})"
+  end
+
 end

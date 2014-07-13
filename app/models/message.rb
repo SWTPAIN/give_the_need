@@ -7,9 +7,19 @@ class Message < ActiveRecord::Base
   validates :sender_id, presence: true
 
   def self.sending_system_notice(commitment)
-    User.find_by_username('System').sent_messages.create(recepient: commitment.receiver,
+    if commitment.status == :pending
+      User.find_by_username('System').sent_messages.create(recepient: commitment.receiver,
                                                          subject: 'Your request is accepted',
                                                          body: "Please note that your request of #{commitment.post.title} is accepted. You may contact the giver.")
+    elsif commitment.status == :failure
+      User.find_by_username('System').sent_messages.create(recepient: commitment.receiver,
+                                                         subject: 'Your commitment does not succeed',
+                                                         body: "Please note that your commitment of #{commitment.post.title} does not succeed due to the failure response given by you or the giver.")
+      User.find_by_username('System').sent_messages.create(recepient: commitment.giver,
+                                                         subject: 'Your commitment does not succeed',
+                                                         body: "Please note that your commitment of #{commitment.post.title} does not succeed due to the failure response given by you or the receiver.")
+    end
+      
   end
 
   def mark_deleted(user)
