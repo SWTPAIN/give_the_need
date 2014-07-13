@@ -6,7 +6,7 @@
     = commitment.created_at
     -if commitment.receiver == user
       - if commitment.receiver_response.nil?
-        =link_to post_commitment_path(commitment.post, commitment, receiver_response: true), method: :patch do
+        =link_to post_commitment_path(commitment.post, commitment, receiver_response: true), method: :patch, confirm: 'Are you sure' do
           %button.btn.btn-primary.btn-xs
             Success
         =link_to post_commitment_path(commitment.post, commitment, receiver_response: false), method: :patch do
