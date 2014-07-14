@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-  before_action :authenticate_user!, only:[:new, :create]
+  before_action :authenticate_user!, only:[:new, :create, :update]
 
   def index
     @sent_messages = current_user.displayable_sent_messages        
@@ -13,7 +13,7 @@ class MessagesController < ApplicationController
       @message.sender = current_user
       @message.recepient = sent_to
       if @message.save
-        flash[:info] = "Message has been sent"
+        flash[:success] = "Message has been sent"
       end
     else
       flash[:danger] = 'There is no such user. Please check the username.'

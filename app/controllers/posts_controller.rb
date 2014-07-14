@@ -7,7 +7,7 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params.merge(user:current_user))
     if @post.save
-      flash[:info] = 'Your registration is succeeded. Please sign in.'
+      flash[:success] = 'Your post is created.'
       redirect_to posts_path
     else 
       flash[:danger] = "There are some problems in your post form. Please check"

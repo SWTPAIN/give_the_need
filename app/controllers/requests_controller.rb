@@ -5,7 +5,7 @@ before_action :authenticate_user!
     @request = @post.requests.new(comment_params)
     @request.creator = current_user
     if @request.save
-      flash[:info] = "Your comment is added"
+      flash[:success] = "Your request is added"
       redirect_to post_path(@post)
     else
       flash[:danger] = "You can only make one request per post."
@@ -13,15 +13,6 @@ before_action :authenticate_user!
     end
   end
 
-  # def destroy
-  #   @request = Request.find(params[:id])
-  #   if @request.destroy
-  #     flash[:info] = 'The request is canceled'
-  #   else
-  #     flash[:danger] = 'There is some problem happering. Please contact admin.'
-  #   end
-  #   redirect_to :back
-  # end
 
   private
 

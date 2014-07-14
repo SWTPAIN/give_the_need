@@ -1,7 +1,7 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", sessions: 'sessions' }
   mount Sidekiq::Web, at: '/sidekiq'
   resources :users, only: [:show] do
     resources :messages, only: [:new, :update, :create, :destroy]
@@ -17,4 +17,5 @@ Rails.application.routes.draw do
   get 'tags/:tag', to: 'posts#index', as: :tag
   get 'locations/:location', to:'posts#index', as: :location
   get 'messages', to:'messages#index', as: :messages
+  get 'welcome', to: 'pages#welcome'
 end
